@@ -18,9 +18,13 @@ async function createTransaction(req, res) {
     const toUserAccount = await accoutModel.findOne({
         _id: toAccount,
     })
-     if(!fromAccount || !toAccount){
+     if(!fromUserAccount || !toUserAccount){
         return res.status(400).json({
-            message: "Invalid fromAccount or toAccout "
+            message: "Invalid fromAccount or to Account "
         })
-     }
+    }
+
+    const isTransactionAlreadyExists = await transactionModel.findOne({
+        
+    })
 }
