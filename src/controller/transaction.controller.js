@@ -25,6 +25,15 @@ async function createTransaction(req, res) {
     }
 
     const isTransactionAlreadyExists = await transactionModel.findOne({
-        
+          idempotencyKey: idempotencyKey                                                                                      
     })
+
+    if(isTransactionAlreadyExists){
+        if(isTransactionAlreadyExists.status === "COMPLETED"){
+            res.status(200).json({
+                message: "Transaction is already processed",
+                transaction: isTransactionAlreadyExists
+            })
+        }
+    }
 }
