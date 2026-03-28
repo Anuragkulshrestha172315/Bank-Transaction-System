@@ -63,6 +63,8 @@ async function sendTransactionFailureEmail(userEmail, name, amount, toAccount){
   const subject = 'Transaction Failure!';
   const text = `Hello ${name}, \n\nWe regret to inform you that your transaction of $${amount} to account ${toAccount} was succesful. \n\nBest regards, \nThe Backend Ledger Team`;
   const html = `<p>Hello ${name}<p/><p> We regret to inform you that your transaction of $${amount} to account  ${toAccount} was succesful. <p/><p>Best regards, <br> The Backend Ledger Team<p/>`
+
+  await sendEmail(userEmail, subject, text, html);
 }
 
 module.exports = {
