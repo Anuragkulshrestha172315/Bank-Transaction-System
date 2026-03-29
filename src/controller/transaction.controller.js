@@ -83,27 +83,27 @@ async function createTransaction(req, res) {
     const session = await mongoose.startSession()
     session.startTransaction()
 
-    const transaction = await transactionModel.create({
+    const transaction = new transactionModel.create({
         fromAccount,
         toAccount,
         amount,
         idempotencyKey,
         status: "PENDING"
-    }, {session})
+    })
 
-    const debitLedgerEntry = await ledgerModel.create({
+    const debitLedgerEntry = await ledgerModel.create([{
         account:  fromAccount,
         amount: amount,
         transaction: transaction._id,
         type: "DEBIT"
-    }, {session})
+    }], {session})
 
-    const creditLedgerEntry = await ledgerModel.create({
+    const creditLedgerEntry = await ledgerModel.create([{
         account:  toAccount,
         amount: amount,
         transaction: transaction._id,
         type: "CREDIT"
-    }, {session})
+    }], {session})
 
     transaction.status = "COMPLETED" 
     await transaction.save({session})
