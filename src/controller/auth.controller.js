@@ -85,7 +85,7 @@ async function userLogoutController(req,res){
         token: token
     })
     res.status(200).json({
-        message: "User logged out Successfully"
+        message: "User logged out successfully"
     })
 }
 
