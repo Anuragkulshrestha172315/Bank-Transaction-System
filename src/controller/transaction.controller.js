@@ -32,7 +32,7 @@ async function createTransaction(req, res) {
   if (isTransactionAlreadyExists) {
     if (isTransactionAlreadyExists.status === "COMPLETED") {
       return res.status(200).json({
-        message: "Transaction is already processed",
+        message: "Transaction is already Processed",
         transaction: isTransactionAlreadyExists,
       });
     }
